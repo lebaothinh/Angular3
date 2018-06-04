@@ -1,0 +1,16 @@
+.stylebuttondelete{
+    background-color: coral;
+    border-color: coral;
+    color: white;
+}
+.stylebuttonupdate{
+    background-color: green;
+    border-color: green;
+    color: white;
+}
+.styleaddstudent{
+    background-color: tomato; border: 1px solid tomato;
+}
+.styleaddstudent:hover{
+    background-color: crimson;
+}

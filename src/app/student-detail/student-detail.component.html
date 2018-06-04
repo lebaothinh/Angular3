@@ -1,0 +1,32 @@
+<nav class="navbar" style="padding: 0 0 20px 0px; border-bottom: 1px solid #e9ecef;">
+  <form class="form-inline" action="">
+    <input class="form-control mr-sm-2" name="searchname" placeholder="Search" [(ngModel)]="searchText" />
+    <button class="btn btn-success" type="submit">Search</button>
+  </form>
+</nav>
+<br>
+<br>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Mã Môn Học</th>
+      <th>Tên Môn Học</th>
+      <th>Điểm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mark of arrStudentsMarkDt | filter: searchText">
+      <ng-container *ngIf="statusupdatemarkdt">
+        <td>{{mark.id}}</td>
+        <td>{{mark.name}}</td>
+        <td>{{mark.mark}}</td>
+        <td>
+          <a class="btn btn-primary btn-sm" routerLink='' (click)="statusupdatemarkdt=!statusupdatemarkdt">Cập Nhật</a>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="!statusupdatemarkdt">
+        <p>dasdsa</p>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
