@@ -5,7 +5,7 @@
     </form>
     <ul class="navbar-nav col-sm-5" style="color:white">
         <li class="nav-item">
-          <a class="nav-link btn btn-primary" (click)="clickSubjectList()">Danh Sách Môn Học</a>
+          <a class="nav-link btn btn-primary" routerLink="/managesubjects" (click)="clickSubjectList()">Danh Sách Môn Học</a>
         </li>&nbsp;
         <li class="nav-item">
           <a class="nav-link btn btn-primary " (click)="clickAddSubject()">Thêm Mới Môn Học</a>
@@ -50,10 +50,10 @@
           <td>{{subject.id}}</td>
           <td>{{subject.name}}</td>
           <td>
-            <a class="btn btn-primary btn-sm stylebuttondelete" (click)="DeleteSubject(subject)">Xóa</a>
+            <a class="btn btn-primary btn-sm " (click)="DeleteSubject(subject,i)">Xóa</a>
           </td>
           <td>
-            <a class="btn btn-primary btn-sm stylebuttonupdate" (click)="UpdateSubjectIn(subject)">Cập Nhật</a>
+            <a class="btn btn-primary btn-sm " (click)="UpdateSubjectIn(subject)">Cập Nhật</a>
           </td>
         </ng-container>
       </tr>

@@ -20,7 +20,7 @@ export class ManageSubjectsComponent implements OnInit {
   //url: string = "http://192.168.101.129:8080/subject/";
 
   arrSubjects: any[];
-
+  arrSubject: any[];
   idos: string;
   nameos: string;
 
@@ -49,12 +49,13 @@ export class ManageSubjectsComponent implements OnInit {
   getAllData() {
     this.getJson.getData(this.url).subscribe((response: any) => {this.arrSubjects =  response;
     });
-    alert('day la get data');
   }
+  mang = {};
   AddSubject(formAddSubject) {
     if (this.statusaddsubject === true) {
       this.getJson.sendPostForm(this.url, formAddSubject.value);
-      //this.DeleteArray(this.arrSubjects,formAddSubject.value.);
+      this.mang = Array.of(formAddSubject);
+      alert(this.mang+" - ")
       this.getAllData();
       alert("Thêm Thành Công!");
     }
@@ -66,17 +67,20 @@ export class ManageSubjectsComponent implements OnInit {
       arrSubjects.splice(arrSubjects.findIndex(i => i.id === id),1)
   }
 
+  AddArray(arrSubjects: any[],value: any)
+  {
+    this.getAllData();
+  }
+
   CannelAddSubject() {
     this.statusaddsubject = false;
   }
-  DeleteSubject(subject: any) {
+  DeleteSubject(subject: any,location: number) {
     let cf = confirm("Bạn có muốn xóa sinh viên " + subject.name)
     if (cf == true) {
       console.log(this.getJson.sendDeleteForm(this.url+subject.id));
-      //this.DeleteArray(this.arrSubjects,subject.id);
-      
+      this.DeleteArray(this.arrSubjects,subject.id); 
       alert("Xóa Thành Công!");
-      this.getAllData();
     }
 
   }
@@ -87,6 +91,7 @@ export class ManageSubjectsComponent implements OnInit {
   UpdateSubject(formUpdateSubject: any) {
     if (this.statusupdatesubject === true) {
       this.getJson.sendPutForm(this.url + this.idos, formUpdateSubject.value);
+    
       this.getAllData();
       alert("Cập Nhật Thành Công!");
       this.clickSubjectList();

@@ -27,7 +27,6 @@ const routesConfig: Routes = [
   { path: 'managesubjects', component: ManageSubjectsComponent },
   { path: 'managemark', component: ManageMarkComponent},
   { path: 'manageclasses', component: ManageClassesComponent},
-  { path: 'managemark/studentdetail', component: StudentDetailComponent},
   { path: 'statistics', component: StatisticsComponent},
   { path: '', redirectTo: '/managestudents', pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent}
