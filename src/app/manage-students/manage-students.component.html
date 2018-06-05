@@ -1,0 +1,121 @@
+<nav class="container navbar navbar-expand-sm row" style="padding:10px; border-bottom: 1px solid #e9ecef;">
+  <form class="form-inline col-sm-7" action="">
+    <input class="form-control mr-sm-2" name="searchname" placeholder="Search" [(ngModel)]="searchText" />
+    <button class="btn btn-success" type="submit">Search</button>
+  </form>
+  <ul class="navbar-nav col-sm-5" style="color:white">
+      <li class="nav-item">
+        <a class="nav-link btn btn-primary" (click)="clickStudentList()">Danh Sách Sinh Viên</a>
+      </li>&nbsp;
+      <li class="nav-item">
+        <a class="nav-link btn btn-primary " (click)="clickAddStudent()">Thêm Mới Sinh Viên</a>
+      </li>
+    </ul>
+</nav>
+<br>
+<form *ngIf="statusaddstudent" (ngSubmit)="AddStudent(formAddStudent)" #formAddStudent="ngForm">
+  <div style="background-color: #28a745; color:white;  border-radius: 5px;text-align: center; height: 10%; padding: 5xp 5px;">
+    <p style="font-family: Arial, Helvetica, sans-serif;font-weight: bold; margin: auto">Thêm Mới Sinh Viên</p>
+  </div><br>
+  <div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">Tên Sinh Viên</label>
+    <div class="col-sm-10">
+      <input name="name" [(ngModel)]="nameos" type="text" class="form-control" id="inputName" placeholder="Nhập tên!">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Lớp</label>
+    <div class="col-sm-10">
+      <select [(ngModel)]="classos" name="studentClassID" class="custom-select" (change)="ChangeValue($event)">
+        <option *ngFor="let class of arrClasses" [selected]="class.id === classos? 'selected':''" [value]="class.id">{{class.id}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="dateOfBirth" class="col-sm-2 col-form-label">Ngày Sinh</label>
+    <div class="col-sm-5">
+      <input disabled name="dateOfBirthFomer" [value]="dobos" type="text" class="form-control" id="dateOfBirth">
+    </div>
+    <div class="col-sm-5">
+      <input name="dateOfBirth" [(ngModel)]="dobos" type="date" class="form-control" id="dateOfBirth" placeholder="Nhập ngày sinh!">
+    </div>
+  </div>
+  <br>
+  <div class="form-group row">
+    <div class="col-sm-5"></div>
+    <div class=" col-sm-3">
+      <button routerLink='/managestudents' class="btn btn-primary btn-md stylebuttonupdate" style="color:white;display: inline-block; margin: 0 auto;">Thêm</button>&nbsp;
+      <button (click)="ReSetInput(formAddStudent)" class="btn btn-primary btn-md stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;"
+        routerLink='/managestudents'>Hủy</button>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</form>
+<br>
+<br>
+<table *ngIf="statusstudenttable" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Mã Sinh Viên</th>
+      <th>Tên Sinh Viên</th>
+      <th>Lớp</th>
+      <th>Ngày Sinh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of arrStudents | filter: searchText">
+      <ng-container *ngIf="statusupdatestudent">
+        <td>{{student.id}}</td>
+        <td>{{student.name}}</td>
+        <td>{{student.studentClassID}}</td>
+        <td>{{student.d | date}}</td>
+        <td>
+          <a class="btn btn-primary btn-sm stylebuttondelete" routerLink='/managestudents' (click)="DeleteStudent(student)">Xóa</a>
+        </td>
+        <td>
+          <a class="btn btn-primary btn-sm stylebuttonupdate" routerLink='/managestudents' (click)="UpdateStudentIn(student)">Cập Nhật</a>
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
+<form name="formUpdate" *ngIf="!statusupdatestudent" (submit)="UpdateStudent(formUpdateStudent)" #formUpdateStudent="ngForm">
+  <div class="form-group row">
+    <label for="staticId" class="col-sm-2 col-form-label">Mã Sinh Viên</label>
+    <div class="col-sm-10">
+      <input name="id" type="text" readonly class="form-control-plaintext" id="staticId" [value]="idos">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">Tên Sinh Viên</label>
+    <div class="col-sm-10">
+      <input name="name" [(ngModel)]="nameos" type="text" class="form-control" id="inputName" placeholder="Nhập tên!">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Lớp</label>
+    <div class="col-sm-10">
+      <select [(ngModel)]="classos" name="studentClassID" class="custom-select" (change)="ChangeValue($event)">
+        <option *ngFor="let class of arrClasses" [selected]="class.id === classos? 'selected':''" [value]="class.id">{{class.id}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="dateOfBirth" class="col-sm-2 col-form-label">Ngày Sinh</label>
+    <div class="col-sm-5">
+      <input disabled name="dateOfBirthFomer" [value]="dobos" type="text" class="form-control" id="dateOfBirth">
+    </div>
+    <div class="col-sm-5">
+      <input name="dateOfBirth" [(ngModel)]="dobos" type="date" class="form-control" id="dateOfBirth" placeholder="Nhập ngày sinh!">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-4"></div>
+    <div class=" col-sm-4">
+      <button routerLink='/managestudents' class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; margin: 0 auto;" routerLink=''>Cập Nhật</button>&nbsp;
+      <button (click)="statusupdatestudent=!statusupdatestudent" class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;"
+        routerLink='/managestudents'>Hủy</button>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</form>

@@ -1,0 +1,85 @@
+<nav class="container navbar navbar-expand-sm row" style="padding:10px; border-bottom: 1px solid #e9ecef;">
+    <form class="form-inline col-sm-7" action="">
+      <input class="form-control mr-sm-2" name="searchname" placeholder="Search" [(ngModel)]="searchText" />
+      <button class="btn btn-success" type="submit">Search</button>
+    </form>
+    <ul class="navbar-nav col-sm-5" style="color:white">
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary" (click)="clickSubjectList()">Danh Sách Môn Học</a>
+        </li>&nbsp;
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary " (click)="clickAddSubject()">Thêm Mới Môn Học</a>
+        </li>
+      </ul>
+  </nav>
+  <br>
+  <form *ngIf="statusaddsubject" (ngSubmit)="AddSubject(formAddSubject)" #formAddSubject="ngForm">
+    <div style="background-color: #28a745; color:white;  border-radius: 5px;text-align: center; height: 10%; padding: 5xp 5px;">
+      <p style="font-family: Arial, Helvetica, sans-serif;font-weight: bold; margin: auto">Thêm Mới Môn Học</p>
+    </div><br>
+    <div class="form-group row">
+      <label for="inputName" class="col-sm-2 col-form-label">Tên Môn Học</label>
+      <div class="col-sm-10">
+        <input name="name" [(ngModel)]="nameos" type="text" class="form-control" id="inputName" placeholder="Nhập tên!">
+      </div>
+      </div>
+    <br>
+    <div class="form-group row">
+      <div class="col-sm-5"></div>
+      <div class=" col-sm-3">
+        <button class="btn btn-primary btn-md stylebuttonupdate" style="color:white;display: inline-block; margin: 0 auto;" >Thêm</button>&nbsp;
+        <button (click)="ReSetInput()" class="btn btn-primary btn-md stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;"
+        >Hủy</button>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+  </form>
+  <br>
+  <br>
+
+  <table *ngIf="statussubjecttable" class="table table-hover">
+    <thead>
+      <tr>
+        <th>Mã Môn Học</th>
+        <th>Tên Môn Học</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subject of arrSubjects | filter: searchText">
+        <ng-container>
+          <td>{{subject.id}}</td>
+          <td>{{subject.name}}</td>
+          <td>
+            <a class="btn btn-primary btn-sm stylebuttondelete" (click)="DeleteSubject(subject)">Xóa</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm stylebuttonupdate" (click)="UpdateSubjectIn(subject)">Cập Nhật</a>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+
+  <form name="formUpdate" *ngIf="statusupdatesubject" (submit)="UpdateSubject(formUpdateSubject)" #formUpdateSubject="ngForm">
+    <div class="form-group row">
+      <label for="staticId" class="col-sm-2 col-form-label">Mã Môn Học</label>
+      <div class="col-sm-10">
+        <input name="id" type="text" readonly class="form-control-plaintext" id="staticId" [value]="idos">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputName" class="col-sm-2 col-form-label">Tên Môn Học</label>
+      <div class="col-sm-10">
+        <input name="name" [(ngModel)]="nameos" type="text" class="form-control" id="inputName" placeholder="Nhập tên!">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-4"></div>
+      <div class=" col-sm-4">
+        <button class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; margin: 0 auto;">Cập Nhật</button>&nbsp;
+        <button (click)="statussubjecttable=!statussubjecttable" class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;"
+         >Hủy</button>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+  </form>
