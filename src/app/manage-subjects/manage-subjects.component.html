@@ -5,7 +5,7 @@
     </form>
     <ul class="navbar-nav col-sm-5" style="color:white">
         <li class="nav-item">
-          <a class="nav-link btn btn-primary" (click)="clickSubjectList()">Danh Sách Môn Học</a>
+          <a  class="nav-link btn btn-primary" (click)="clickSubjectList()">Danh Sách Môn Học</a>
         </li>&nbsp;
         <li class="nav-item">
           <a class="nav-link btn btn-primary " (click)="clickAddSubject()">Thêm Mới Môn Học</a>
@@ -13,7 +13,7 @@
       </ul>
   </nav>
   <br>
-  <form *ngIf="statusaddsubject" (ngSubmit)="AddSubject(formAddSubject)" #formAddSubject="ngForm">
+  <form class="collapse show" id="subjectlist" *ngIf="statusaddsubject" (ngSubmit)="AddSubject(formAddSubject)" #formAddSubject="ngForm">
     <div style="background-color: #28a745; color:white;  border-radius: 5px;text-align: center; height: 10%; padding: 5xp 5px;">
       <p style="font-family: Arial, Helvetica, sans-serif;font-weight: bold; margin: auto">Thêm Mới Môn Học</p>
     </div><br>
@@ -77,7 +77,7 @@
       <div class="col-sm-4"></div>
       <div class=" col-sm-4">
         <button class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; margin: 0 auto;">Cập Nhật</button>&nbsp;
-        <button (click)="statussubjecttable=!statussubjecttable" class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;"
+        <button (click)="ReSetInput()" class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;"
          >Hủy</button>
       </div>
       <div class="col-sm-4"></div>

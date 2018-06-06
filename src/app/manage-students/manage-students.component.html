@@ -5,15 +5,15 @@
   </form>
   <ul class="navbar-nav col-sm-5" style="color:white">
       <li class="nav-item">
-        <a class="nav-link btn btn-primary" (click)="clickStudentList()">Danh Sách Sinh Viên</a>
+        <a data-toggle="collapse" data-target="#studentlist" class="nav-link btn btn-primary" (click)="clickStudentList()">Danh Sách Sinh Viên</a>
       </li>&nbsp;
       <li class="nav-item">
-        <a class="nav-link btn btn-primary " (click)="clickAddStudent()">Thêm Mới Sinh Viên</a>
+        <a data-toggle="collapse" data-target="#addstudent" class="nav-link btn btn-primary " (click)="clickAddStudent()">Thêm Mới Sinh Viên</a>
       </li>
     </ul>
 </nav>
 <br>
-<form *ngIf="statusaddstudent" (ngSubmit)="AddStudent(formAddStudent)" #formAddStudent="ngForm">
+<form class="collapse" id="addstudent" *ngIf="statusaddstudent" (ngSubmit)="AddStudent(formAddStudent)" #formAddStudent="ngForm">
   <div style="background-color: #28a745; color:white;  border-radius: 5px;text-align: center; height: 10%; padding: 5xp 5px;">
     <p style="font-family: Arial, Helvetica, sans-serif;font-weight: bold; margin: auto">Thêm Mới Sinh Viên</p>
   </div><br>
@@ -53,7 +53,7 @@
 </form>
 <br>
 <br>
-<table *ngIf="statusstudenttable" class="table table-hover">
+<table id="studentlist" *ngIf="statusstudenttable" class="table table-hover collapse">
   <thead>
     <tr>
       <th>Mã Sinh Viên</th>
