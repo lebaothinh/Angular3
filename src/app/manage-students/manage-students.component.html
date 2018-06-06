@@ -27,7 +27,7 @@
     <label class="col-sm-2 col-form-label">Lớp</label>
     <div class="col-sm-10">
       <select [(ngModel)]="classos" name="studentClassID" class="custom-select" (change)="ChangeValue($event)">
-        <option *ngFor="let class of arrClasses" [selected]="class.id === classos? 'selected':''" [value]="class.id">{{class.id}}</option>
+        <option *ngFor="let class of arrClasses" [selected]="class.id === classos? 'selected':''" [value]="class.id">{{class.name}}</option>
       </select>
     </div>
   </div>
@@ -64,11 +64,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let student of arrStudents | filter: searchText">
-      <ng-container *ngIf="statusupdatestudent">
-        <td>{{student.id}}</td>
-        <td>{{student.name}}</td>
-        <td>{{student.studentClassID}}</td>
-        <td>{{student.d | date}}</td>
+      <ng-container>
+        <td>{{student.studentID}}</td>
+        <td>{{student.student_Name}}</td>
+        <td>{{student.student_class_name}}</td>
+        <td>{{student.date_of_birth | date}}</td>
         <td>
           <a class="btn btn-primary btn-sm stylebuttondelete" routerLink='/managestudents' (click)="DeleteStudent(student)">Xóa</a>
         </td>
@@ -79,7 +79,7 @@
     </tr>
   </tbody>
 </table>
-<form name="formUpdate" *ngIf="!statusupdatestudent" (submit)="UpdateStudent(formUpdateStudent)" #formUpdateStudent="ngForm">
+<form name="formUpdate" *ngIf="statusupdatestudent" (submit)="UpdateStudent(formUpdateStudent)" #formUpdateStudent="ngForm">
   <div class="form-group row">
     <label for="staticId" class="col-sm-2 col-form-label">Mã Sinh Viên</label>
     <div class="col-sm-10">
@@ -96,7 +96,7 @@
     <label class="col-sm-2 col-form-label">Lớp</label>
     <div class="col-sm-10">
       <select [(ngModel)]="classos" name="studentClassID" class="custom-select" (change)="ChangeValue($event)">
-        <option *ngFor="let class of arrClasses" [selected]="class.id === classos? 'selected':''" [value]="class.id">{{class.id}}</option>
+        <option *ngFor="let class of arrClasses" [selected]="class.id === classos? 'selected':''" [value]="class.id">{{class.name}}</option>
       </select>
     </div>
   </div>
@@ -106,14 +106,14 @@
       <input disabled name="dateOfBirthFomer" [value]="dobos" type="text" class="form-control" id="dateOfBirth">
     </div>
     <div class="col-sm-5">
-      <input name="dateOfBirth" [(ngModel)]="dobos" type="date" class="form-control" id="dateOfBirth" placeholder="Nhập ngày sinh!">
+      <input name="dateOfBirth"  [(ngModel)]="dobos" type="date" class="form-control" id="dateOfBirth" placeholder="Nhập ngày sinh!">
     </div>
   </div>
   <div class="form-group row">
     <div class="col-sm-4"></div>
     <div class=" col-sm-4">
       <button routerLink='/managestudents' class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; margin: 0 auto;" routerLink=''>Cập Nhật</button>&nbsp;
-      <button (click)="statusupdatestudent=!statusupdatestudent" class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;"
+      <button (click)="CannelUpdateStudent()" class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;"
         routerLink='/managestudents'>Hủy</button>
     </div>
     <div class="col-sm-4"></div>

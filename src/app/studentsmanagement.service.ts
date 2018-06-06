@@ -10,21 +10,21 @@ import { Observable } from 'rxjs/internal/Observable';
 export class StudentsmanagementService {
 
   constructor(private http: Http) { }
-  getData(url: string) {
+  getData(url: string){
     return this.http.get(url)
     //.toPromise()
     //.then(res => res.json());
     //.catch(err => console.log(err))
-    .map((response: Response) => response.json())
+    .map((response: any) => response.json())
   }
-  sendPostForm(url: string, value){
+  sendPostForm(url: string, value) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const body = JSON.stringify(value);
     return this.http.post(url, body, { headers })
     .toPromise()
     .then(res => res.json())
     .catch(err => console.log(err))
-    //.map((response: Response) => response.json())
+    //map((response: Response) => response.json())
   }
   sendPutForm(url: string, value) {
     const headers = new Headers({ 'Content-Type': 'application/json' });

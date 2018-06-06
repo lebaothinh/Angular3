@@ -1,32 +1,124 @@
-<nav class="navbar" style="padding: 0 0 20px 0px; border-bottom: 1px solid #e9ecef;">
-  <form class="form-inline" action="">
+<nav class="container navbar navbar-expand-sm row" style="padding:10px; border-bottom: 1px solid #e9ecef;">
+  <form class="form-inline col-sm-7" action="">
     <input class="form-control mr-sm-2" name="searchname" placeholder="Search" [(ngModel)]="searchText" />
     <button class="btn btn-success" type="submit">Search</button>
   </form>
+  <ul class="navbar-nav col-sm-5" style="color:white">
+    <li class="nav-item">
+      <a class="nav-link btn btn-primary" (click)="clickMarkList()">Danh Sách Điểm</a>
+    </li>&nbsp;
+    <li class="nav-item">
+      <a class="nav-link btn btn-primary " (click)="clickAddMark()">Đăng Ký Môn Học</a>
+    </li>
+  </ul>
 </nav>
 <br>
+<form *ngIf="statusaddmark" (ngSubmit)="AddMark(formAddMark)" #formAddMark="ngForm">
+  <div style="background-color: #28a745; color:white;  border-radius: 5px;text-align: center; height: 10%; padding: 5xp 5px;">
+    <p style="font-family: Arial, Helvetica, sans-serif;font-weight: bold; margin: auto">Thêm Mới Điểm</p>
+  </div>
+  <br>
+  <div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">ID Sinh Viên</label>
+    <div class="col-sm-5">
+      <select [(ngModel)]="idost" name="studentID" class="custom-select" (change)="ChangeValueStudent($event)">
+        <option *ngFor="let student of arrStudents" [selected]="" [value]="student.studentID">{{student.studentID}}</option>
+      </select>
+    </div>
+    <div class="col-sm-5">
+      <input disabled name="studentName" [(ngModel)]="nameost" type="text" class="form-control" id="inputName" placeholder="Nhập tên!">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">ID Môn Học</label>
+    <div class="col-sm-5">
+      <select [(ngModel)]="idosu" name="subjectID" class="custom-select" (change)="ChangeValueSubject($event)">
+        <option *ngFor="let subject of arrSubjects" [selected]="" [value]="subject.id">{{subject.id}}</option>
+      </select>
+    </div>
+    <div class="col-sm-5">
+      <input disabled name="subjectName" [(ngModel)]="nameosu" type="text" class="form-control" id="inputName" placeholder="Nhập tên!">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">Điểm</label>
+    <div class="col-sm-10">
+      <input name="score" [(ngModel)]="score"  type="number" class="form-control" id="inputscore" placeholder="Nhập điểm!">
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="form-group row">
+    <div class="col-sm-5"></div>
+    <div class=" col-sm-3">
+      <button class="btn btn-primary btn-md stylebuttonupdate" style="color:white;display: inline-block; margin: 0 auto;">Thêm</button>&nbsp;
+      <button (click)="ReSetInput()" class="btn btn-primary btn-md stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;">Hủy</button>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</form>
 <br>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Mã Sinh Viên</th>
-      <th>Tên Sinh Viên</th>
-      <th>Điểm</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let mark of arrStudentsMark | filter: searchText">
-      <ng-container *ngIf="statusupdatemark">
-        <td>{{mark.id}}</td>
-        <td>{{mark.name}}</td>
-        <td>{{mark.average}}</td>
-        <td>
-          <a class="btn btn-primary btn-sm" routerLink='studentdetail' (click)="UpdateStudentMark()">Cập Nhật</a>
-        </td>
-      </ng-container>
-      <ng-container *ngIf="!statusupdatemark">
-        <p>dasdsa</p>
-      </ng-container>
-    </tr>
-  </tbody>
-</table>
+<br>
+<div class="table" *ngIf="statusmarktable" style="margin: 0px">
+    <div>
+        <select class="custom-select" (change)="ChangeSelectSubject($event)">
+          <option selected value="allsubjects">Tất cả môn học</option>
+          <option *ngFor="let subject of arrSubjects" [value]="subject.id">{{subject.name}}</option>
+        </select>
+    </div>
+    <table  class="table-hover ">
+      <thead>
+        <tr>
+          <th>Mã Điểm</th>
+          <th>Mã Sinh Viên</th>
+          <th>Tên Sinh Viên</th>
+          <th>Mã Môn Học</th>
+          <th>Tên Môn Học</th>
+          <th>Điểm</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mark of arrMarks | filter: searchText">
+              <td><input class="inputeplement" min="1" type="number" [value]="mark.id" disabled  style="max-width: 60px;"></td>
+              <td><input class="inputeplement" min="1" type="number" [value]="mark.student_id" disabled style="max-width: 80px;"></td>
+              <td><input class="inputeplement" type="text" [value]="mark.student_name" disabled ></td>
+              <td><input class="inputeplement" min="1" type="number" [value]="mark.subject_id" disabled style="max-width: 80px;"></td>
+              <td><input class="inputeplement" type="text" [value]="mark.subject_name" disabled style="max-width: 80px;"></td>
+              
+              <td><input name="score" [ngClass]="disabletable ? 'inputeplement' : 'inputeplementupdate'" min="0" max="10" type="number" [value]="mark.score" [disabled]="disabletable" (input)="UpdateScore(mark,$event)" style="max-width: 80px;"></td>
+            <td>
+              <a class="btn btn-primary btn-sm stylebuttondelete" (click)="DeleteMark(mark)">Xóa</a>
+            </td> 
+        </tr>
+      </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="col-sm-5"></div>
+        <button class="btn btn-primary col-sm-2" (click)="UpdateMark()">{{btnupdatemark}}</button>&nbsp;
+        <div class="col-sm-6"></div>
+      </div>
+</div>
+
+
+<form name="formUpdate" *ngIf="statusupdatemark" (submit)="UpdateMarkDetail(formUpdateMark)" #formUpdateMark="ngForm">
+  <div class="form-group row">
+    <label for="staticId" class="col-sm-2 col-form-label">Mã Điểm</label>
+    <div class="col-sm-10">
+      <input name="id" type="text" readonly class="form-control-plaintext" id="staticId" [value]="idos">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">Tên Điểm</label>
+    <div class="col-sm-10">
+      <input name="name" [(ngModel)]="nameos" type="text" class="form-control" id="inputName" placeholder="Nhập tên!">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-4"></div>
+    <div class=" col-sm-4">
+      <button class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; margin: 0 auto;">Cập Nhật</button>&nbsp;
+      <button (click)="statusmarktable=!statusmarktable" class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;display: inline-block; border: chocolate; background-color: chocolate; margin: 0 auto;">Hủy</button>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</form>

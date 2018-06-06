@@ -12,17 +12,14 @@ import { ManageStudentsService } from './manage-students.service'
 })
 export class ManageStudentsComponent implements OnInit {
 
-  statusupdatestudent: boolean = true;
+  statusupdatestudent: boolean = false;
   statusaddstudent: boolean = false;
   statusstudenttable = true;
   searchText: string = '';
   url: string = "http://192.168.101.129:8080/student/";
-
+  urlClasses: string = "http://192.168.101.129:8080/studentClass/";
   arrStudents = [];
-  arrClasses = [
-    { id: 'D15PM01' },
-    { id: 'D15PM02' }
-  ];
+  arrClasses = [];
   idos: string;
   nameos: string;
   classos: string;
@@ -36,29 +33,33 @@ export class ManageStudentsComponent implements OnInit {
     if (this.statusstudenttable === false) {
       this.statusstudenttable = true;
       this.statusaddstudent = false;
-      this.statusupdatestudent = true;
+      this.statusupdatestudent = false;
       this.searchText = '';
     }
   }
 
   clickAddStudent() {
-    if (this.statusaddstudent == false) {
+    if (this.statusaddstudent === false) {
       this.statusstudenttable = false;
       this.statusaddstudent = true;
-      this.statusupdatestudent = true;
+      this.statusupdatestudent = false;
       this.searchText = '';
     }
+  }
+
+  getAllDataClasses() {
+    this.getJson.getData(this.urlClasses)
+      .subscribe((res: any) => this.arrClasses = res);
   }
 
   ChangeValue(event: any) {
     this.classos = event.target.value;
   }
   getAllData() {
-    this.arrStudents = [];
     this.getJson.getData(this.url).subscribe(resJson => this.arrStudents = resJson);
   }
   AddStudent(formAddStudent) {
-    if (this.statusaddstudent === false) {
+    if (this.statusaddstudent === true) {
       this.getJson.sendPostForm(this.url, formAddStudent.value);
       this.getAllData();
       alert("Thêm Thành Công!");
@@ -72,7 +73,7 @@ export class ManageStudentsComponent implements OnInit {
     let cf = confirm("Bạn có muốn xóa sinh viên " + student.name)
     if (cf == true) {
       console.log(this.getJson.sendDeleteForm(this.url + student.id));
-      const index = this.arrStudents.findIndex(std => std.id = student.id);
+      const index = this.arrStudents.findIndex(std => std.id == student.id);
       this.arrStudents.splice(index, 1);
     }
 
@@ -84,28 +85,31 @@ export class ManageStudentsComponent implements OnInit {
     this.dobos = null;
   }
   UpdateStudent(formUpdateStudent: any) {
-    if (this.statusupdatestudent === false) {
+    if (this.statusupdatestudent === true) {
       this.getJson.sendPutForm(this.url + this.idos, formUpdateStudent.value);
       this.getAllData();
       alert("Cập Nhật Thành Công!");
-      this.statusupdatestudent = !this.statusupdatestudent;
+      this.statusupdatestudent= false;
+      this.statusstudenttable = true;
     }
   }
   UpdateStudentIn(student: any) {
-    this.statusupdatestudent = false;
-    this.idos = student.id;
-    this.nameos = student.name;
-    this.classos = student.studentClass;
-    this.dobos = student.dateOfBirth;
-    alert(this.classos);
+    this.statusupdatestudent = true;
+    this.statusstudenttable = false;
+    this.idos = student.studentID;
+    this.nameos = student.student_Name;
+    this.classos = student.student_classid;
+    this.dobos = student.date_of_birth;
   }
 
   CannelUpdateStudent() {
-    this.statusupdatestudent = true;
+    this.statusupdatestudent = false;
+    this.statusstudenttable = true;
   }
 
   ngOnInit() {
     this.getAllData();
+    this.getAllDataClasses();
   }
 
 }

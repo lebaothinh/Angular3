@@ -30,7 +30,7 @@ export class ManageStudentsService {
   }
 
   sendDeleteForm(url: string) {
-    const headers = new Headers({ 'Content-Type': 'application.json' });
+    const headers = new Headers({ 'Content-Type': 'application/json' });
     //const body = JSON.stringify(value);
     return this.http.delete(url,{headers})
       .toPromise()
