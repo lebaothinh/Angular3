@@ -1,9 +1,4 @@
-.nav-link:hover{
-    background-color: aliceblue;
-}
 .selected{
-    background-color: aliceblue;
-}
-.stylebuttonleft{
-    
+    color: #fff;
+    background-color: #dc3545;
 }

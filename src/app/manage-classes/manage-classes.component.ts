@@ -53,11 +53,10 @@ export class ManageClassesComponent implements OnInit {
   }
   AddClass(formAddClass) {
     if (this.statusaddclass === true) {
-      this.getJson.sendPostForm(this.url, formAddClass.value);
-      this.getAllData();
+      this.getJson.sendPostForm(this.url, formAddClass.value)
+      .then(() => this.getAllData());
       alert("Thêm Thành Công!");
     }
-
   }
 
   DeleteArray(arrClasses: any[],id: string)
@@ -71,10 +70,9 @@ export class ManageClassesComponent implements OnInit {
   DeleteClass(classc: any) {
     let cf = confirm("Bạn có muốn xóa lớp " + classc.name)
     if (cf == true) {
-      console.log(this.getJson.sendDeleteForm(this.url+classc.id));
-      this.DeleteArray(this.arrClasses,classc.id);
+      this.getJson.sendDeleteForm(this.url+classc.id)
+      .then(() => this.getAllData());
       alert("Xóa Thành Công!");
-      this.getAllData();
     }
 
   }
@@ -84,8 +82,8 @@ export class ManageClassesComponent implements OnInit {
   }
   UpdateClass(formUpdateClass: any) {
     if (this.statusupdateclass === true) {
-      this.getJson.sendPutForm(this.url + this.idos, formUpdateClass.value);
-      this.getAllData();
+      this.getJson.sendPutForm(this.url + this.idos, formUpdateClass.value)
+      .then(() => this.getAllData());
       alert("Cập Nhật Thành Công!");
       this.clickClassList();
     }

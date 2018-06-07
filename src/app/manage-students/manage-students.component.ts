@@ -56,12 +56,14 @@ export class ManageStudentsComponent implements OnInit {
     this.classos = event.target.value;
   }
   getAllData() {
-    this.getJson.getData(this.url).subscribe(resJson => this.arrStudents = resJson);
+    this.getJson.getData(this.url).subscribe(resJson => {
+      this.arrStudents = resJson;
+      console.log(resJson);
+    });
   }
   AddStudent(formAddStudent) {
     if (this.statusaddstudent === true) {
-      this.getJson.sendPostForm(this.url, formAddStudent.value);
-      this.getAllData();
+      this.getJson.sendPostForm(this.url, formAddStudent.value).then(()=> this.getAllData());
       alert("Thêm Thành Công!");
     }
   }
@@ -70,13 +72,10 @@ export class ManageStudentsComponent implements OnInit {
     this.statusaddstudent = false;
   }
   DeleteStudent(student: any) {
-    let cf = confirm("Bạn có muốn xóa sinh viên " + student.name)
+    let cf = confirm("Bạn có muốn xóa sinh viên " + student.student_Name)
     if (cf == true) {
-      console.log(this.getJson.sendDeleteForm(this.url + student.id));
-      const index = this.arrStudents.findIndex(std => std.id == student.id);
-      this.arrStudents.splice(index, 1);
+      this.getJson.sendDeleteForm(this.url + student.studentID).then(() => this.getAllData());
     }
-
   }
   ReSetInput(formAddStudent: any) {
     this.idos = '';
@@ -86,8 +85,8 @@ export class ManageStudentsComponent implements OnInit {
   }
   UpdateStudent(formUpdateStudent: any) {
     if (this.statusupdatestudent === true) {
-      this.getJson.sendPutForm(this.url + this.idos, formUpdateStudent.value);
-      this.getAllData();
+      this.getJson.sendPutForm(this.url + this.idos, formUpdateStudent.value)
+      .then(() => this.getAllData());
       alert("Cập Nhật Thành Công!");
       this.statusupdatestudent= false;
       this.statusstudenttable = true;

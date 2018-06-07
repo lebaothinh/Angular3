@@ -92,13 +92,9 @@ export class ManageMarkComponent implements OnInit {
     {
       this.btnupdatemark = "Chỉnh Sửa";
       this.disabletable = true;
-      this.arrMarks.forEach(element => {
-
-      })
     }
   }
 
-  CannelMark
   UpdateScore(value: any,event: any)
   {
     this.idom = value.id;
@@ -137,15 +133,11 @@ export class ManageMarkComponent implements OnInit {
 
   AddMark(formAddMark) {
     if (this.statusaddmark === true) {
-      this.getJson.sendPostForm(this.url, formAddMark.value);
-      this.getAllData();
+      this.getJson.sendPostForm(this.url, formAddMark.value)
+      .then(() => this.getAllData());
       alert("Thêm Thành Công!");
     }
 
-  }
-
-  DeleteArray(arrMarks: any[], id: string) {
-    arrMarks.splice(arrMarks.findIndex(i => i.id === id), 1)
   }
 
   CannelAddMark() {
@@ -154,10 +146,9 @@ export class ManageMarkComponent implements OnInit {
   DeleteMark(mark: any) {
     let cf = confirm("Bạn có muốn xóa điểm môn " + mark.subjectID + " của sinh viên " + mark.studentID)
     if (cf == true) {
-      this.getJson.sendDeleteForm(this.url + mark.id);
-      //this.DeleteArray(this.arrMarks,m.id);
+      this.getJson.sendDeleteForm(this.url + mark.id)
+      .then(() => this.getAllData());
       alert("Xóa Thành Công!");
-      this.getAllData();
     }
   }
   ReSetInput() {
@@ -170,7 +161,8 @@ export class ManageMarkComponent implements OnInit {
   }
   UpdateMarkIntoDataBase(form: any)
   {
-    this.getJson.sendPutForm(this.url + this.idom, form);
+    this.getJson.sendPutForm(this.url + this.idom, form)
+    .then(() => this.getAllData());
   }
   
   UpdateMarkDetail(formUpdateMark: any) {

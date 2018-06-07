@@ -3,22 +3,10 @@
     <div style="padding: 10px 30px; background-size: cover;">
       <img src="../assets/img/student-hat.png" class="img-fluid" alt="Responsive image">
     </div>
-    <h3 style="padding:20px;">Ứng Dụng Quản Lý Sinh Viên</h3>
+    <h3 style="padding:20px;color:white">Ứng Dụng Quản Lý Sinh Viên</h3>
     <ul class="nav nav-pills flex-column " style="padding: 20px;">
-      <li class="nav-item">
-        <a class="nav-link stylebuttonleft active" routerLink="/managestudents">Quản Lý Sinh Viên</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link stylebuttonleft" routerLink="/managesubjects">Quản Lý Môn Học</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link stylebuttonleft" routerLink="/manageclasses">Quản Lý Lớp Học </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link stylebuttonleft" routerLink="/managemark">Quản Lý Điểm</a>
-      </li> 
-      <li class="nav-item">
-        <a class="nav-link stylebuttonleft" routerLink="/statistics">Thống Kê </a>
+      <li class="nav-item" *ngFor="let option of arrOptions">
+        <a style=" margin: 2px; color:white;" (click)="onSelected(option.id)" class="nav-link stylebuttonleft" [class.selected]="option.id === selected" [routerLink]="option.link">{{option.name}}</a>
       </li>
     </ul>
     <hr class="d-sm-none">

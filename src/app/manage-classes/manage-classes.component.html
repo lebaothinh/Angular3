@@ -1,4 +1,4 @@
-<nav class="container navbar navbar-expand-sm row" style="padding:10px; border-bottom: 1px solid #e9ecef;">
+<nav class="sticky-top navbar navbar-expand-sm row" style="padding:10px; background-color: #f5f8fa; margin: 0px">
   <form class="form-inline col-sm-7" action="">
     <input class="form-control mr-sm-2" name="searchname" placeholder="Search" [(ngModel)]="searchText" />
     <button class="btn btn-success" type="submit">Search</button>
@@ -14,7 +14,7 @@
 </nav>
 <br>
 <form *ngIf="statusaddclass" (ngSubmit)="AddClass(formAddClass)" #formAddClass="ngForm">
-  <div style="background-color: #28a745; color:white;  border-radius: 5px;text-align: center; height: 10%; padding: 5xp 5px;">
+  <div class="headeradd">
     <p style="font-family: Arial, Helvetica, sans-serif;font-weight: bold; margin: auto">Thêm Mới Lớp Học</p>
   </div><br>
   <div class="form-group row">
@@ -53,16 +53,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let class of arrClasses | filter: searchText">
+    <tr *ngFor="let class of arrClasses | filterSubjects: searchText">
       <ng-container>
         <td>{{class.id}}</td>
         <td>{{class.name}}</td>
         <td>{{class.monitor}}</td>
         <td>
-          <a class="btn btn-primary btn-sm stylebuttondelete" (click)="DeleteClass(class)">Xóa</a>
+          <a style="color:white; background-color:#D95355; border: #D95355 " class="btn btn-primary btn-sm stylebuttondelete" (click)="DeleteClass(class)">Xóa</a>
         </td>
         <td>
-          <a class="btn btn-primary btn-sm stylebuttonupdate" (click)="UpdateClassIn(class)">Cập Nhật</a>
+          <a style="color:white" class="btn btn-primary btn-sm stylebuttonupdate" (click)="UpdateClassIn(class)">Cập Nhật</a>
         </td>
       </ng-container>
     </tr>

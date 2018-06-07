@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Headers, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { FormsModule, NgForm } from '@angular/forms';
 import { StudentsmanagementService } from '../studentsmanagement.service';
@@ -16,15 +15,15 @@ export class ManageSubjectsComponent implements OnInit {
   statusaddsubject: boolean = false;
   statussubjecttable = true;
   searchText: string = '';
-  url: string = "http://5b1104db3ffdad0014dacd97.mockapi.io/managestudents/subject/";
-  //url: string = "http://192.168.101.129:8080/subject/";
+  //url: string = "http://5b1104db3ffdad0014dacd97.mockapi.io/managestudents/subject/";
+  url: string = "http://192.168.101.129:8080/subject/";
 
   arrSubjects: any[];
   arrSubject: any[];
   idos: string;
   nameos: string;
 
-  constructor(private getJson: StudentsmanagementService, private http: Http) {
+  constructor(private getJson: StudentsmanagementService) {
 
   }
 
@@ -53,32 +52,21 @@ export class ManageSubjectsComponent implements OnInit {
   mang = {};
   AddSubject(formAddSubject) {
     if (this.statusaddsubject === true) {
-      this.getJson.sendPostForm(this.url, formAddSubject.value);
-      alert(this.mang+" - ")
-      this.getAllData();
+      this.getJson.sendPostForm(this.url, formAddSubject.value)
+      .then(() => this.getAllData());
       alert("Thêm Thành Công!");
     }
 
-  }
-
-  DeleteArray(arrSubjects: any[],id: string)
-  { 
-      arrSubjects.splice(arrSubjects.findIndex(i => i.id === id),1)
-  }
-
-  AddArray(arrSubjects: any[],value: any)
-  {
-    this.getAllData();
   }
 
   CannelAddSubject() {
     this.statusaddsubject = false;
   }
   DeleteSubject(subject: any,location: number) {
-    let cf = confirm("Bạn có muốn xóa sinh viên " + subject.name)
+    let cf = confirm("Bạn có muốn xóa môn học " + subject.name)
     if (cf == true) {
-      console.log(this.getJson.sendDeleteForm(this.url+subject.id));
-      this.DeleteArray(this.arrSubjects,subject.id); 
+      this.getJson.sendDeleteForm(this.url+subject.id)
+      .then(() => this.getAllData());
       alert("Xóa Thành Công!");
     }
 
@@ -92,9 +80,8 @@ export class ManageSubjectsComponent implements OnInit {
   }
   UpdateSubject(formUpdateSubject: any) {
     if (this.statusupdatesubject === true) {
-      this.getJson.sendPutForm(this.url + this.idos, formUpdateSubject.value);
-    
-      this.getAllData();
+      this.getJson.sendPutForm(this.url + this.idos, formUpdateSubject.value)
+      .then(() => this.getAllData());
       alert("Cập Nhật Thành Công!");
       this.clickSubjectList();
     }
