@@ -24,6 +24,7 @@ export class ManageStudentsComponent implements OnInit {
   nameos: string;
   classos: string;
   dobos: Date;
+  vd = new Date('1997-12-30');
 
   constructor(private getJson: ManageStudentsService, private http: Http) {
 

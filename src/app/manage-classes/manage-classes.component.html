@@ -43,8 +43,8 @@
 </form>
 <br>
 <br>
-
-<table *ngIf="statusclasstable" class="table table-hover">
+<div *ngIf="statusclasstable" >
+<table  class="table table-striped">
   <thead>
     <tr>
       <th>Mã Lớp Học</th>
@@ -52,7 +52,7 @@
       <th>Giáo Viên Chủ Nhiệm</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="point">
     <tr *ngFor="let class of arrClasses | filterSubjects: searchText">
       <ng-container>
         <td>{{class.id}}</td>
@@ -62,13 +62,13 @@
           <a style="color:white; background-color:#D95355; border: #D95355 " class="btn btn-primary btn-sm stylebuttondelete" (click)="DeleteClass(class)">Xóa</a>
         </td>
         <td>
-          <a style="color:white" class="btn btn-primary btn-sm stylebuttonupdate" (click)="UpdateClassIn(class)">Cập Nhật</a>
+          <a style="color:white" class="btn btn-success btn-sm" (click)="UpdateClassIn(class)">Cập Nhật</a>
         </td>
       </ng-container>
     </tr>
   </tbody>
 </table>
-
+</div>
 <form name="formUpdate" *ngIf="statusupdateclass" (submit)="UpdateClass(formUpdateClass)" #formUpdateClass="ngForm">
   <div class="form-group row">
     <label for="staticId" class="col-sm-2 col-form-label">Mã Lớp Học</label>

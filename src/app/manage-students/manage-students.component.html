@@ -52,32 +52,34 @@
 </form>
 <br>
 <br>
-<table *ngIf="statusstudenttable" class="table table-hover">
-  <thead>
-    <tr>
-      <th>Mã Sinh Viên</th>
-      <th>Tên Sinh Viên</th>
-      <th>Lớp</th>
-      <th>Ngày Sinh</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of arrStudents | filterStudents: searchText">
-      <ng-container>
-        <td>{{student.studentID}}</td>
-        <td>{{student.student_Name}}</td>
-        <td>{{student.student_class_name}}</td>
-        <td>{{student.date_of_birth | date}}</td>
-        <td>
-          <a style="color:white; background-color:#D95355; border: #D95355 " class="btn btn-success btn-sm " (click)="DeleteStudent(student)">Xóa</a>
-        </td>
-        <td>
-          <a style="color:white" class="btn btn-success btn-sm " (click)="UpdateStudentIn(student)">Cập Nhật</a>
-        </td>
-      </ng-container>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="statusstudenttable">
+    <table  class="table table-striped">
+        <thead>
+          <tr>
+            <th>Mã Sinh Viên</th>
+            <th>Tên Sinh Viên</th>
+            <th>Lớp</th>
+            <th>Ngày Sinh</th>
+          </tr>
+        </thead>
+        <tbody class="point">
+          <tr *ngFor="let student of arrStudents | filterStudents: searchText">
+            <ng-container>
+              <td>{{student.studentID}}</td>
+              <td>{{student.student_Name}}</td>
+              <td>{{student.student_class_name}}</td>
+              <td>{{student.date_of_birth | date}}</td>
+              <td>
+                <a style="color:white; background-color:#D95355; border: #D95355 " class="btn btn-success btn-sm " (click)="DeleteStudent(student)">Xóa</a>
+              </td>
+              <td>
+                <a style="color:white" class="btn btn-success btn-sm " (click)="UpdateStudentIn(student)">Cập Nhật</a>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+</div>
 <form name="formUpdate" *ngIf="statusupdatestudent" (submit)="UpdateStudent(formUpdateStudent)" #formUpdateStudent="ngForm">
   <div class="form-group row">
     <label for="staticId" class="col-sm-2 col-form-label">Mã Sinh Viên</label>
@@ -102,7 +104,7 @@
   <div class="form-group row">
     <label for="dateOfBirth" class="col-sm-2 col-form-label">Ngày Sinh</label>
     <div class="col-sm-5">
-      <input disabled name="dateOfBirthFomer" [value]="dobos" type="text" class="form-control" id="dateOfBirth">
+      <input disabled name="dateOfBirthFomer" [value]="dobos | date" type="text" class="form-control" id="dateOfBirth">
     </div>
     <div class="col-sm-5">
       <input name="dateOfBirth" [(ngModel)]="dobos" type="date" class="form-control" id="dateOfBirth" placeholder="Nhập ngày sinh!">

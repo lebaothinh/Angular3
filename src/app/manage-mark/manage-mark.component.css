@@ -8,3 +8,6 @@
 .headeradd{
     background-color: #FFC107; color:white;  border-radius: 3px;text-align: center; height: 10%; padding: 10px 5px;
 }
+.point :hover{
+    background-color: #FFC107;
+}

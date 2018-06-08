@@ -64,7 +64,7 @@ const routesConfig: Routes = [
     RouterModule.forRoot(routesConfig),
     HttpClientModule
   ],
-  providers: [ManageStudentsService
+  providers: [StudentsmanagementService
   ],
   bootstrap: [AppComponent],
   exports: [RouterModule]

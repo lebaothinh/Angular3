@@ -2,3 +2,6 @@
     background-color: coral;
     border-radius: 3px;
 }
+.point :hover{
+    background-color: #FFC107;
+}

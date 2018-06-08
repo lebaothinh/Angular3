@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { FormsModule, NgForm } from '@angular/forms';
 import { StudentsmanagementService } from '../studentsmanagement.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-manage-subjects',
@@ -15,17 +16,14 @@ export class ManageSubjectsComponent implements OnInit {
   statusaddsubject: boolean = false;
   statussubjecttable = true;
   searchText: string = '';
-  //url: string = "http://5b1104db3ffdad0014dacd97.mockapi.io/managestudents/subject/";
-  url: string = "http://192.168.101.129:8080/subject/";
+  url: string = "http://5b1104db3ffdad0014dacd97.mockapi.io/managestudents/subject/";
+  //url: string = "http://192.168.101.129:8080/subject/";
 
   arrSubjects: any[];
-  arrSubject: any[];
   idos: string;
   nameos: string;
 
-  constructor(private getJson: StudentsmanagementService) {
-
-  }
+  constructor(private getJson: StudentsmanagementService) {}
 
   clickSubjectList() {
     if (this.statussubjecttable === false) {
@@ -46,7 +44,8 @@ export class ManageSubjectsComponent implements OnInit {
   }
 
   getAllData() {
-    this.getJson.getData(this.url).subscribe((response: any) => {this.arrSubjects =  response;
+    this.getJson.getData(this.url).subscribe((response: any) => {
+      this.arrSubjects =  response;
     });
   }
   mang = {};

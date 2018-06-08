@@ -65,7 +65,7 @@
         </select>
     </div>
     <br>
-    <table  class="table-hover ">
+    <table  class="table table-striped">
       <thead>
         <tr>
           <th>Mã Điểm</th>
@@ -76,7 +76,7 @@
           <th>Điểm</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="point">
         <tr *ngFor="let mark of arrMarks | filterMarks: searchText">
               <td><input class="inputeplement" min="1" type="number" [value]="mark.id" disabled  style="max-width: 60px;"></td>
               <td><input class="inputeplement" min="1" type="number" [value]="mark.student_id" disabled style="max-width: 80px;"></td>

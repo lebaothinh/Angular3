@@ -37,28 +37,35 @@
 <br>
 <br>
 
-<table *ngIf="statussubjecttable" class="table table-hover">
-  <thead>
-    <tr>
-      <th>Mã Môn Học</th>
-      <th>Tên Môn Học</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let subject of arrSubjects | filterSubjects: searchText">
-      <ng-container>
-        <td>{{subject.id}}</td>
-        <td>{{subject.name}}</td>
-        <td>
-          <a style="color:white; background-color:#D95355; border: #D95355 " class="btn btn-primary btn-sm stylebuttondelete" (click)="DeleteSubject(subject)">Xóa</a>
-        </td>
-        <td>
-          <a style="color:white" class="btn btn-primary btn-sm stylebuttonupdate" (click)="UpdateSubjectIn(subject)">Cập Nhật</a>
-        </td>
-      </ng-container>
-    </tr>
-  </tbody>
-</table>
+<div  *ngIf="statussubjecttable">
+  <table  class="table table-striped">
+    <thead>
+      <tr>
+        <th>Mã Môn Học</th>
+        <th>Tên Môn Học</th>
+      </tr>
+    </thead>
+    <tbody class="point">
+      <tr  *ngFor="let subject of arrSubjects | filterSubjects: searchText">
+        <ng-container>
+          <td>{{subject.id}}</td>
+          <td>{{subject.name}}</td>
+          <td>
+            <a style="color:white; background-color:#D95355; border: #D95355 " class="btn btn-primary btn-sm stylebuttondelete" (click)="DeleteSubject(subject)">Xóa</a>
+          </td>
+          <td>
+            <a style="color:white" class="btn btn-success btn-sm" (click)="UpdateSubjectIn(subject)">Cập Nhật</a>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <ul class="pagination">
+      <li *ngFor="let sub of arrSubject" class="page-item"><button class="page-link" (click)="clickPagination($event)">{{sub.id}}</button></li>
+    </ul>
+  </div>
+</div>
 
 <form name="formUpdate" *ngIf="statusupdatesubject" (submit)="UpdateSubject(formUpdateSubject)" #formUpdateSubject="ngForm">
   <div class="form-group row">
